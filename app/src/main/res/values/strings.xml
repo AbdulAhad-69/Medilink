@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Medilink</string>
+    <string name="app_name">MediLink</string>
+    <string name="app_tagline">Your Health. Our Mission.</string>
+    <string name="emergency_call">Emergency Call</string>
+    <string name="blood_request">Blood Request</string>
+    <string name="scan_prescription">Scan Prescription</string>
+    <string name="find_donors">Find Donors</string>
+    <string name="medical_records">Medical Records</string>
+    <string name="reminders">Reminders</string>
+    <string name="loading">Loading MediLink...</string>
+    <string name="permission_required">Permission required for full functionality</string>
+    <string name="emergency_mode">Emergency Mode Activated</string>
 </resources>
