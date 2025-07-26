@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediLink - Your Health. Our Mission.</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-content">
+            <div class="blood-drop-icon">
+                <i class="fas fa-tint"></i>
+            </div>
+            <h1 class="app-name">MediLink</h1>
+            <p class="tagline">"Your Health. Our Mission."</p>
+            <div class="loading-indicator">
+                <div class="pulse"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login/Register Screen -->
+    <div id="auth-screen" class="screen">
+        <div class="auth-container">
+            <div class="logo-section">
+                <div class="blood-drop-small">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <h2>MediLink</h2>
+                <p>Your Health. Our Mission.</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                <button class="tab-btn" onclick="switchTab('register')">Register</button>
+            </div>
+            
+            <div id="login-form" class="auth-form active">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button class="cta-btn" onclick="goToHome()">Login</button>
+                <p class="forgot-password">Forgot Password?</p>
+            </div>
+            
+            <div id="register-form" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-tint"></i>
+                    <select required>
+                        <option value="">Blood Type</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <button class="cta-btn" onclick="goToHome()">Register</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Dashboard -->
+    <div id="home-screen" class="screen">
+        <div class="header">
+            <div class="user-greeting">
+                <h3>Good Morning, John</h3>
+                <p>How can we help you today?</p>
+            </div>
+            <div class="emergency-btn" onclick="showEmergencyOptions()">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+        </div>
+        
+        <div class="dashboard-cards">
+            <div class="card urgent" onclick="showScreen('blood-request')">
+                <div class="card-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <h4>Request Blood</h4>
+                <p>Emergency blood request</p>
+            </div>
+            
+            <div class="card" onclick="showScreen('scan-prescription')">
+                <div class="card-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h4>Scan Prescription</h4>
+                <p>Scan & upload prescriptions</p>
+            </div>
+            
+            <div class="card" onclick="showScreen('search-medicine')">
+                <div class="card-icon">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <h4>Search Medicine</h4>
+                <p>Find medicine information</p>
+            </div>
+            
+            <div class="card" onclick="showScreen('medical-records')">
+                <div class="card-icon">
+                    <i class="fas fa-file-medical"></i>
+                </div>
+                <h4>Medical Records</h4>
+                <p>View your health history</p>
+            </div>
+            
+            <div class="card" onclick="showScreen('reminders')">
+                <div class="card-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h4>Reminders</h4>
+                <p>Medicine & appointment alerts</p>
+            </div>
+            
+            <div class="card" onclick="showScreen('donor-map')">
+                <div class="card-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h4>Find Donors</h4>
+                <p>Nearby blood donors</p>
+            </div>
+        </div>
+        
+        <div class="quick-stats">
+            <div class="stat">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Lives Saved</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Donations</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Available</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blood Request Screen -->
+    <div id="blood-request" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Blood Request</h2>
+        </div>
+        
+        <div class="form-container">
+            <div class="urgency-indicator">
+                <div class="urgency-levels">
+                    <button class="urgency-btn critical active" data-level="critical">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Critical
+                    </button>
+                    <button class="urgency-btn urgent" data-level="urgent">
+                        <i class="fas fa-exclamation"></i>
+                        Urgent
+                    </button>
+                    <button class="urgency-btn normal" data-level="normal">
+                        <i class="fas fa-info"></i>
+                        Normal
+                    </button>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <label>Blood Type Needed</label>
+                <div class="blood-type-grid">
+                    <button class="blood-type-btn" data-type="A+">A+</button>
+                    <button class="blood-type-btn" data-type="A-">A-</button>
+                    <button class="blood-type-btn" data-type="B+">B+</button>
+                    <button class="blood-type-btn" data-type="B-">B-</button>
+                    <button class="blood-type-btn" data-type="AB+">AB+</button>
+                    <button class="blood-type-btn" data-type="AB-">AB-</button>
+                    <button class="blood-type-btn" data-type="O+" class="active">O+</button>
+                    <button class="blood-type-btn" data-type="O-">O-</button>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Hospital/Location</label>
+                <div class="location-input">
+                    <i class="fas fa-hospital"></i>
+                    <input type="text" placeholder="Enter hospital name or location" value="City General Hospital">
+                    <button class="location-btn">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Units Required</label>
+                <div class="unit-selector">
+                    <button class="unit-btn" onclick="changeUnits(-1)">-</button>
+                    <span class="unit-count">2</span>
+                    <button class="unit-btn" onclick="changeUnits(1)">+</button>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Contact Information</label>
+                <input type="tel" placeholder="Emergency contact number" value="+1 234-567-8900">
+            </div>
+            
+            <button class="cta-btn emergency" onclick="submitBloodRequest()">
+                <i class="fas fa-tint"></i>
+                Send Emergency Request
+            </button>
+        </div>
+    </div>
+
+    <!-- Scan Prescription Screen -->
+    <div id="scan-prescription" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Scan Prescription</h2>
+        </div>
+        
+        <div class="scanner-container">
+            <div class="camera-view">
+                <div class="scan-frame">
+                    <div class="corner top-left"></div>
+                    <div class="corner top-right"></div>
+                    <div class="corner bottom-left"></div>
+                    <div class="corner bottom-right"></div>
+                    <div class="scan-line"></div>
+                </div>
+                <p class="scan-instruction">Position prescription within the frame</p>
+            </div>
+            
+            <div class="scan-controls">
+                <button class="control-btn" onclick="toggleFlash()">
+                    <i class="fas fa-bolt"></i>
+                    Flash
+                </button>
+                <button class="scan-btn" onclick="scanPrescription()">
+                    <i class="fas fa-camera"></i>
+                    Scan Now
+                </button>
+                <button class="control-btn" onclick="selectFromGallery()">
+                    <i class="fas fa-images"></i>
+                    Gallery
+                </button>
+            </div>
+        </div>
+        
+        <div class="recent-scans">
+            <h4>Recent Scans</h4>
+            <div class="scan-item">
+                <div class="scan-thumbnail">
+                    <i class="fas fa-file-prescription"></i>
+                </div>
+                <div class="scan-info">
+                    <h5>Blood Pressure Medication</h5>
+                    <p>Scanned 2 hours ago</p>
+                </div>
+                <button class="view-btn">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donor Map Screen -->
+    <div id="donor-map" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Nearby Donors</h2>
+            <button class="filter-btn" onclick="showFilters()">
+                <i class="fas fa-filter"></i>
+            </button>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-placeholder">
+                <div class="donor-pin" style="top: 30%; left: 40%;" onclick="showDonorProfile('donor1')">
+                    <i class="fas fa-user"></i>
+                    <span class="blood-type">O+</span>
+                </div>
+                <div class="donor-pin" style="top: 60%; left: 70%;" onclick="showDonorProfile('donor2')">
+                    <i class="fas fa-user"></i>
+                    <span class="blood-type">A+</span>
+                </div>
+                <div class="donor-pin" style="top: 45%; left: 25%;" onclick="showDonorProfile('donor3')">
+                    <i class="fas fa-user"></i>
+                    <span class="blood-type">B-</span>
+                </div>
+                <div class="user-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="donor-list">
+            <div class="donor-card available" onclick="showDonorProfile('donor1')">
+                <div class="donor-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="donor-info">
+                    <h4>Sarah Johnson</h4>
+                    <p>Blood Type: O+ • 2.3 km away</p>
+                    <span class="availability available">Available Now</span>
+                </div>
+                <div class="donor-rating">
+                    <span>4.9</span>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            
+            <div class="donor-card busy" onclick="showDonorProfile('donor2')">
+                <div class="donor-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="donor-info">
+                    <h4>Michael Chen</h4>
+                    <p>Blood Type: A+ • 3.7 km away</p>
+                    <span class="availability busy">Busy until 3 PM</span>
+                </div>
+                <div class="donor-rating">
+                    <span>4.7</span>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Medicine Screen -->
+    <div id="search-medicine" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Search Medicine</h2>
+        </div>
+        
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search medicine name..." id="medicine-search">
+                <button class="voice-search" onclick="startVoiceSearch()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+            
+            <div class="medicine-results">
+                <div class="medicine-item">
+                    <div class="medicine-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="medicine-info">
+                        <h4>Paracetamol 500mg</h4>
+                        <p>Pain relief, fever reducer</p>
+                        <div class="medicine-details">
+                            <span class="price">$8.99</span>
+                            <span class="availability in-stock">In Stock</span>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addToRecords('paracetamol')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
+                <div class="medicine-item">
+                    <div class="medicine-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="medicine-info">
+                        <h4>Aspirin 100mg</h4>
+                        <p>Blood thinner, heart health</p>
+                        <div class="medicine-details">
+                            <span class="price">$12.50</span>
+                            <span class="availability low-stock">Low Stock</span>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addToRecords('aspirin')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="nearby-pharmacies">
+                <h4>Nearby Pharmacies</h4>
+                <div class="pharmacy-item">
+                    <div class="pharmacy-icon">
+                        <i class="fas fa-prescription-bottle"></i>
+                    </div>
+                    <div class="pharmacy-info">
+                        <h5>CVS Pharmacy</h5>
+                        <p>0.8 km • Open until 10 PM</p>
+                    </div>
+                    <button class="directions-btn">
+                        <i class="fas fa-directions"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reminders Screen -->
+    <div id="reminders" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Reminders</h2>
+            <button class="add-reminder-btn" onclick="showAddReminder()">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        
+        <div class="reminders-container">
+            <div class="reminder-item active">
+                <div class="reminder-icon">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <div class="reminder-info">
+                    <h4>Blood Pressure Medication</h4>
+                    <p>Every day at 9:00 AM</p>
+                    <span class="next-dose">Next: Today 9:00 AM</span>
+                </div>
+                <div class="reminder-toggle">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </div>
+            </div>
+            
+            <div class="reminder-item">
+                <div class="reminder-icon">
+                    <i class="fas fa-syringe"></i>
+                </div>
+                <div class="reminder-info">
+                    <h4>Insulin Injection</h4>
+                    <p>Before meals</p>
+                    <span class="next-dose">Next: Today 12:30 PM</span>
+                </div>
+                <div class="reminder-toggle">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </div>
+            </div>
+            
+            <div class="reminder-item">
+                <div class="reminder-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="reminder-info">
+                    <h4>Doctor Appointment</h4>
+                    <p>Dr. Smith - Cardiology</p>
+                    <span class="next-dose">Tomorrow 2:00 PM</span>
+                </div>
+                <div class="reminder-toggle">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reminder-stats">
+            <div class="stat-card">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Adherence Rate</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Streak Days</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medical Records Screen -->
+    <div id="medical-records" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Medical Records</h2>
+            <button class="search-records-btn" onclick="searchRecords()">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        
+        <div class="records-container">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="prescriptions">Prescriptions</button>
+                <button class="filter-tab" data-filter="tests">Tests</button>
+                <button class="filter-tab" data-filter="visits">Visits</button>
+            </div>
+            
+            <div class="record-item">
+                <div class="record-icon">
+                    <i class="fas fa-file-medical"></i>
+                </div>
+                <div class="record-info">
+                    <h4>Annual Physical Exam</h4>
+                    <p>Dr. Emily Rodriguez - General Medicine</p>
+                    <span class="record-date">March 15, 2024</span>
+                </div>
+                <button class="download-btn" onclick="downloadRecord('physical-2024')">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+            
+            <div class="record-item">
+                <div class="record-icon">
+                    <i class="fas fa-vial"></i>
+                </div>
+                <div class="record-info">
+                    <h4>Blood Test Results</h4>
+                    <p>Complete Blood Count (CBC)</p>
+                    <span class="record-date">March 10, 2024</span>
+                </div>
+                <button class="download-btn" onclick="downloadRecord('blood-test-2024')">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+            
+            <div class="record-item">
+                <div class="record-icon">
+                    <i class="fas fa-prescription"></i>
+                </div>
+                <div class="record-info">
+                    <h4>Prescription Update</h4>
+                    <p>Hypertension medication adjustment</p>
+                    <span class="record-date">February 28, 2024</span>
+                </div>
+                <button class="download-btn" onclick="downloadRecord('prescription-2024')">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="health-summary">
+            <h4>Health Summary</h4>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Blood Type</span>
+                    <span class="summary-value">O+</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Allergies</span>
+                    <span class="summary-value">Penicillin</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Conditions</span>
+                    <span class="summary-value">Hypertension</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Last Visit</span>
+                    <span class="summary-value">Mar 15, 2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Screen -->
+    <div id="profile" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Profile</h2>
+            <button class="edit-profile-btn" onclick="editProfile()">
+                <i class="fas fa-edit"></i>
+            </button>
+        </div>
+        
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>John Doe</h3>
+                <p>john.doe@email.com</p>
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <span class="stat-number">O+</span>
+                        <span class="stat-label">Blood Type</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Donations</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="stat-number">4.9</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-menu">
+                <div class="menu-item" onclick="editPersonalInfo()">
+                    <div class="menu-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <span>Edit Personal Information</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" onclick="manageEmergencyContacts()">
+                    <div class="menu-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <span>Emergency Contacts</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" onclick="donorSettings()">
+                    <div class="menu-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <span>Donor Settings</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" onclick="privacySettings()">
+                    <div class="menu-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span>Privacy & Security</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" onclick="notifications()">
+                    <div class="menu-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <span>Notification Settings</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item logout" onclick="logout()">
+                    <div class="menu-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <span>Logout</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lore/Story Screen -->
+    <div id="lore-screen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Our Story</h2>
+        </div>
+        
+        <div class="lore-container">
+            <div class="lore-hero">
+                <div class="connection-visual">
+                    <div class="human-figure" id="figure1">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="human-figure" id="figure2">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="human-figure" id="figure3">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <div class="connection-line line1"></div>
+                    <div class="connection-line line2"></div>
+                    <div class="connection-line line3"></div>
+                </div>
+            </div>
+            
+            <div class="lore-content">
+                <h3>Born from Crisis, Built for Hope</h3>
+                <p>In a post-pandemic world where medical crises spike and blood donation reached an all-time low, MediLink was born from necessity.</p>
+                
+                <p>We witnessed too many stories where seconds mattered, where a missing connection between a donor and a patient meant the difference between life and death.</p>
+                
+                <p>MediLink isn't just an app — it's a lifeline, connecting those in urgent need of blood, prescriptions, or medical support with verified donors, hospitals, and pharmacies around them.</p>
+                
+                <div class="impact-numbers">
+                    <div class="impact-stat">
+                        <span class="impact-number">10,000+</span>
+                        <span class="impact-label">Lives Connected</span>
+                    </div>
+                    <div class="impact-stat">
+                        <span class="impact-number">5,000+</span>
+                        <span class="impact-label">Successful Donations</span>
+                    </div>
+                    <div class="impact-stat">
+                        <span class="impact-number">24/7</span>
+                        <span class="impact-label">Always Available</span>
+                    </div>
+                </div>
+                
+                <p class="mission-statement">
+                    <strong>Our Mission:</strong> To save lives through instant access, trusted networks, and smart tools. Because every drop counts, and every second matters.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div id="bottom-nav" class="bottom-nav">
+        <button class="nav-btn active" onclick="showScreen('home-screen')">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" onclick="showScreen('donor-map')">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Donors</span>
+        </button>
+        <button class="nav-btn emergency" onclick="showScreen('blood-request')">
+            <i class="fas fa-tint"></i>
+            <span>Emergency</span>
+        </button>
+        <button class="nav-btn" onclick="showScreen('medical-records')">
+            <i class="fas fa-file-medical"></i>
+            <span>Records</span>
+        </button>
+        <button class="nav-btn" onclick="showScreen('profile')">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </button>
+    </div>
+
+    <!-- Emergency Contact Modal -->
+    <div id="emergency-modal" class="modal">
+        <div class="modal-content">
+            <h3>Emergency Actions</h3>
+            <div class="emergency-actions">
+                <button class="emergency-action" onclick="callEmergency()">
+                    <i class="fas fa-phone"></i>
+                    Call 911
+                </button>
+                <button class="emergency-action" onclick="notifyContacts()">
+                    <i class="fas fa-users"></i>
+                    Notify Contacts
+                </button>
+                <button class="emergency-action" onclick="shareLocation()">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Share Location
+                </button>
+            </div>
+            <button class="modal-close" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

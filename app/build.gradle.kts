@@ -14,6 +14,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
+        // MediLink App Configuration
+        resValue("string", "app_name", "MediLink")
+        resValue("string", "app_tagline", "Your Health. Our Mission.")
     }
 
     buildTypes {
